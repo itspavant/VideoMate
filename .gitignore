@@ -1,0 +1,110 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.*
+*.env
+
+# Secrets
+*.pem
+*.key
+*.crt
+*.p12
+
+# Python build
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Type checking
+.mypy_cache/
+.pyre/
+.pytype/
+
+# Linting
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+temp/
+tmp/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node (if any frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+*.sqlite3
+*.db
+
+vector_db/
+
+# Generated outputs
+outputs/
+output/
+generated/
+downloads/
+
+# Models
+models/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.onnx
+
+# Large media (if generated locally)
+*.mp4
+*.avi
+*.mov
+*.wav
+*.mp3
+
+# FAISS indexes
+*.faiss
+*.index
