@@ -97,9 +97,9 @@ VideoMate is an AI-powered meeting assistant that converts meeting recordings or
                         │                ▼
                         │            ChromaDB
                         │                │
-                        ▼                ▼
-          Title • Action Items • Decisions • Questions
-                                         │
+                        ▼                │
+          Title • Action Items •         │
+          Decisions • Questions          │
                                          ▼
                                   RAG Question Answering
 ```
