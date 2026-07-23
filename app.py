@@ -259,7 +259,15 @@ if run_clicked and source:
         for k, _ in STEP_ORDER:
             if st.session_state.steps.get(k) == "active":
                 st.session_state.steps[k] = "pending"
-        status.error(f"Session failed: {e}")
+        # Check if the error is YouTube blocking/bot detection
+        err_msg = str(e)
+        if any(keyword in err_msg for keyword in ["Sign in to confirm you're not a bot", "HTTP Error 403", "YouTube said", "cookies"]):
+            status.error(
+                "⚠️ YouTube is blocking API calls to download the video. "
+                "Please upload the file directly using the **Upload** option in the console on the left."
+            )
+        else:
+            status.error(f"Session failed: {e}")
 
 # ──────────────────────────────────────────────────────────────────────────
 # Results
