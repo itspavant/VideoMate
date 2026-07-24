@@ -311,9 +311,8 @@ else:
     st.write("")
     c1, c2, c3 = st.columns(3, gap="medium")
     with col1:
-      st.markdown('<div class="paper-card"><div class="eyebrow">Summary</div></div>', unsafe_allow_html=True)
-      # Rendering directly via st.markdown prevents list parsing glitches inside HTML tags
-      st.markdown(result["summary"])
+      st.markdown(f'<div class="paper-card"><div class="eyebrow">Summary</div>'
+                  f'<div class="body">{result["summary"]}</div></div>', unsafe_allow_html=True)
     with c2:
         st.markdown(f'<div class="cue"><div class="eyebrow">🔑 Key decisions</div>'
                     f'<div class="body">{result["key_decisions"]}</div></div>', unsafe_allow_html=True)
