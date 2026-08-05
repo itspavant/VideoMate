@@ -1,78 +1,159 @@
-Live: [https://videomate.streamlit.app/](https://videomate.streamlit.app/)
+# 🎥 VideoMate – AI-Powered Meeting Intelligence Platform
 
-# 🎥 VideoMate – AI Meeting Assistant
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Live_App-FF4B4B.svg)](https://streamlit.io/)
+[![LangChain](https://img.shields.io/badge/LangChain-LCEL-success.svg)](https://www.langchain.com/)
+[![Whisper](https://img.shields.io/badge/OpenAI-Whisper-black.svg)](https://github.com/openai/whisper)
+[![Ollama](https://img.shields.io/badge/Ollama-Local_LLM-000000.svg)](https://ollama.com/)
+[![Groq](https://img.shields.io/badge/Groq-Cloud_LLM-f55036.svg)](https://groq.com/)
 
-VideoMate is an AI-powered meeting assistant that converts meeting recordings or YouTube videos into structured, actionable insights. It automatically transcribes meetings, generates concise summaries, extracts action items, decisions, and unanswered questions, and enables users to ask natural language questions over the meeting using Retrieval-Augmented Generation (RAG).
+## 🌐 Live Demo
 
-## ✨ Features
+**https://videomate.streamlit.app/**
 
-- 🎙️ **Speech-to-Text**
-  - Local transcription using **OpenAI Whisper**
-  - Hindi/Hinglish transcription + English translation using **Sarvam AI**
+## 📖 Overview
 
-- 📄 **AI Meeting Summary**
-  - Generates concise bullet-point summaries
-  - Uses a **Map-Reduce summarization pipeline** for long transcripts
+VideoMate is an AI-powered meeting assistant that transforms lengthy meetings, recorded lectures, podcasts, and YouTube videos into structured, actionable insights.
 
-- 🏷️ **Automatic Meeting Title**
-  - Generates a professional title for every meeting
+Simply upload a meeting recording or paste a YouTube URL, and VideoMate will automatically:
 
-- ✅ **Action Item Extraction**
-  - Task description
-  - Responsible owner
-  - Deadline (if mentioned)
+- 🎙️ Transcribe speech into text
+- 📝 Generate concise meeting summaries
+- 🏷️ Create an intelligent meeting title
+- ✅ Extract action items
+- 📌 Identify key decisions
+- ❓ Find unanswered questions
+- 💬 Allow semantic chat with the meeting using Retrieval-Augmented Generation (RAG)
 
-- 📌 **Key Decision Extraction**
-  - Automatically identifies important decisions made during the meeting
+Designed with a modular AI pipeline, VideoMate supports both **cloud-hosted LLMs (Groq)** and **local LLMs (Ollama)** for flexible development and deployment.
 
-- ❓ **Question Extraction**
-  - Finds unresolved questions and follow-up topics
 
-- 🔍 **RAG-based Q&A**
-  - Ask questions about the meeting transcript
-  - Retrieves only relevant transcript chunks before querying the LLM
+# ✨ Features
 
-- 📥 **Input Support**
-  - Local audio/video files
-  - YouTube URLs
+## 🎙️ Speech-to-Text
 
-- 📤 **Export**
-  - Structured meeting notes
-  - Transcript
-  - Summary
-  - Action Items
-  - Decisions
-  - Questions
+- OpenAI Whisper (Offline)
+- Hindi/Hinglish transcription support
+- Automatic English translation
+- Audio chunking for long recordings
+- YouTube audio extraction
 
-## 🛠️ Tech Stack
 
-### AI & LLM
-- Mistral AI
+## 📝 AI Meeting Summary
+
+- Map-Reduce summarization pipeline
+- Handles transcripts longer than LLM context windows
+- Generates structured meeting notes
+
+
+## 🏷️ Automatic Meeting Title
+
+Generate a concise, professional meeting title based on transcript content.
+
+
+## ✅ Action Item Extraction
+
+Automatically extracts:
+
+- Task Description
+- Responsible Owner
+- Deadline (if mentioned)
+
+
+## 📌 Key Decision Extraction
+
+Detects important decisions made during the meeting.
+
+
+## ❓ Open Question Detection
+
+Finds:
+
+- Unanswered questions
+- Follow-up topics
+- Pending discussions
+
+
+## 💬 Meeting Chat (RAG)
+
+Ask questions such as:
+
+> What deadline did John mention?
+
+> Who is responsible for deployment?
+
+> Summarize the discussion around authentication.
+
+VideoMate retrieves only the relevant transcript chunks before generating an answer.
+
+
+## 📥 Input Sources
+
+Supports:
+
+- 🎥 YouTube URLs
+- 🎧 MP3
+- 🎬 MP4
+- 🎙️ WAV
+- Local Audio Files
+- Local Video Files
+
+
+## 📤 Output
+
+VideoMate generates:
+
+- Meeting Title
+- Complete Transcript
+- AI Summary
+- Action Items
+- Key Decisions
+- Open Questions
+- Interactive RAG Chat
+
+
+# 🛠 Tech Stack
+
+## AI & LLM
+
 - LangChain (LCEL)
+- Groq
+- Ollama
 
-### Speech Processing
+
+## Speech Processing
+
 - OpenAI Whisper
-- Sarvam AI Speech-to-Text API
+- Sarvam AI
 
-### Retrieval-Augmented Generation
+
+## Retrieval-Augmented Generation
+
 - ChromaDB
 - HuggingFace Embeddings
 - Sentence Transformers
 
-### Backend
+
+## Backend
+
 - Python
 
-### Media Processing
+
+## Media Processing
+
 - yt-dlp
 - FFmpeg
 - pydub
 
-### UI
+
+## User Interface
+
 - Streamlit
 
-## 🏗️ Project Architecture
 
-```
+# 🏗 Project Architecture
+
+```text
                 Video / YouTube URL
                         │
                         ▼
@@ -81,119 +162,205 @@ VideoMate is an AI-powered meeting assistant that converts meeting recordings or
                         ▼
                  Audio Chunking
                         │
-        ┌───────────────┴───────────────┐
-        │                               │
-        ▼                               ▼
-   Whisper (English)          Sarvam AI (Hindi/Hinglish)
-        │                               │
-        └───────────────┬───────────────┘
+        ┌───────────────┴────────────────┐
+        │                                │
+        ▼                                ▼
+ Whisper (English)          Sarvam AI (Hindi/Hinglish)
+        │                                │
+        └───────────────┬────────────────┘
                         ▼
-                  Full Transcript
+                 Full Transcript
                         │
-        ┌───────────────┼────────────────┐
-        ▼               ▼                ▼
-     Summary        Information      Vector Store
-                    Extraction           │
-                        │                ▼
-                        │            ChromaDB
-                        │                │
-                        ▼                │
-          Title • Action Items •         │
-          Decisions • Questions          │
+        ┌───────────────┼──────────────────┐
+        ▼               ▼                  ▼
+     Summary      Information         Vector Store
+                  Extraction               │
+                        │                  ▼
+                        │              ChromaDB
+                        │                  │
+                        ▼                  ▼
+      Title • Action Items •        Similarity Search
+      Decisions • Questions              │
                                          ▼
-                                  RAG Question Answering
+                                   Relevant Context
+                                         │
+                                         ▼
+                                     LLM Response
 ```
 
-## ⚙️ Installation
+
+# 📂 Project Structure
+
+```text
+VideoMate
+│
+├── app.py
+├── main.py
+├── test.py
+├── requirements.txt
+├── packages.txt
+│
+├── core
+│   ├── extractor.py
+│   ├── rag_engine.py
+│   ├── summarizer.py
+│   ├── transcriber.py
+│   └── vector_store.py
+│
+├── utils
+│   └── audio_processor.py
+│
+└── README.md
+```
+
+
+# ⚙ Installation
 
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/videomate.git
+git clone https://github.com/<your-username>/VideoMate.git
 
-cd videomate
+cd VideoMate
 ```
 
-Create a virtual environment
 
-```bash
-python -m venv .venv
-```
-
-Activate it
+## Create Virtual Environment
 
 ### Windows
 
 ```bash
+python -m venv .venv
+
 .venv\Scripts\activate
 ```
 
 ### Linux/macOS
 
 ```bash
+python3 -m venv .venv
+
 source .venv/bin/activate
 ```
 
-Install dependencies
+
+# 📦 Install Dependencies
+
+Install all project dependencies.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 🔑 Environment Variables
+
+# 🤖 LLM Providers
+
+VideoMate supports two LLM providers.
+
+## Option 1 — Groq (Recommended for Deployment)
+
+```env
+LLM_PROVIDER=groq
+
+GROQ_API_KEY=your_api_key
+```
+
+
+## Option 2 — Ollama (Recommended for Local Development)
+
+Install Ollama:
+
+https://ollama.com
+
+Pull a model:
+
+```bash
+ollama pull llama3.2:3b
+```
+
+Start the server:
+
+```bash
+ollama serve
+```
+
+Then configure:
+
+```env
+LLM_PROVIDER=ollama
+
+OLLAMA_MODEL=llama3.2:3b
+```
+
+You may replace the model with any locally available Ollama model.
+
+Example:
+
+```env
+OLLAMA_MODEL=qwen3:8b
+```
+
+
+# 🔑 Environment Variables
 
 Create a `.env` file.
 
 ```env
-MISTRAL_API_KEY=your_api_key
+# LLM Provider
+LLM_PROVIDER=groq
 
-SARVAM_API_KEY=your_api_key
+# Groq
+GROQ_API_KEY=
 
+# Ollama
+OLLAMA_MODEL=llama3.2:3b
+
+# Sarvam AI
+SARVAM_API_KEY=
 SARVAM_STT_MODEL=saaras:v2.5
 
+# Whisper
 WHISPER_MODEL=small
 ```
 
-## 🚀 Running the Project
 
-Run the application
+# 🚀 Running the Project
+
+## Streamlit
 
 ```bash
 streamlit run app.py
 ```
 
-or
+
+## CLI
 
 ```bash
-python test.py
+python main.py
 ```
 
-## 💡 Example Workflow
 
-1. Upload a meeting recording or paste a YouTube link.
-2. Audio is downloaded and split into chunks.
-3. Whisper or Sarvam transcribes the audio.
-4. AI generates:
-   - Meeting Title
+# 💡 Example Workflow
+
+1. Upload a meeting recording or paste a YouTube URL.
+2. Audio is downloaded.
+3. Audio is chunked.
+4. Whisper/Sarvam transcribes speech.
+5. AI generates:
+   - Title
    - Summary
    - Action Items
    - Key Decisions
-   - Open Questions
-5. Transcript is embedded into ChromaDB.
-6. Users can ask natural language questions about the meeting.
+   - Questions
+6. Transcript is embedded into ChromaDB.
+7. Users interact with the meeting through RAG-powered chat.
 
-## 🧠 AI Pipeline
 
-### Transcription
+# 🧠 AI Pipeline
 
-- Whisper (Offline)
-- Sarvam AI (Translation + STT)
+## Meeting Summarization
 
-### Summarization
-
-Uses a **Map-Reduce** strategy to summarize long transcripts beyond the LLM context window.
-
-```
+```text
 Transcript
       │
       ▼
@@ -209,62 +376,155 @@ Transcript
  Final Summary
 ```
 
----
 
-### Information Extraction
+## Information Extraction
 
-The same Map-Reduce pipeline is used to extract:
+The same Map-Reduce strategy is used for:
 
 - Action Items
-- Decisions
+- Key Decisions
 - Open Questions
 
----
 
-### Retrieval-Augmented Generation (RAG)
+## Retrieval-Augmented Generation
 
-```
+```text
 Transcript
       │
       ▼
- Text Chunks
+Text Splitting
       │
       ▼
- Embeddings
+Embeddings
       │
       ▼
- ChromaDB
+ChromaDB
       │
       ▼
- Similarity Search
+Similarity Search
       │
       ▼
- Relevant Context
+Relevant Context
       │
       ▼
- Mistral LLM
+LLM
       │
       ▼
- Answer
+Answer
 ```
 
-## 📈 Future Improvements
 
-- Speaker diarization
-- Meeting timeline generation
-- Multi-language support
-- Calendar integration
-- Email meeting summaries
-- Action item reminders
-- Multi-meeting semantic search
-- Cloud deployment
+# 🤝 Contributing
 
-## 📜 License
+Contributions are always welcome!
 
-This project is intended for educational and personal use.
+## 1. Fork the repository
 
-## 👨‍💻 Author
+Click the **Fork** button on GitHub.
+
+
+## 2. Clone your fork
+
+```bash
+git clone https://github.com/<your-username>/VideoMate.git
+
+cd VideoMate
+```
+
+
+## 3. Create a Virtual Environment
+
+```bash
+python -m venv .venv
+```
+
+Activate it.
+
+Install dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+
+## 4. Configure Environment Variables
+
+Create a `.env` file.
+
+Refer to the **Environment Variables** section.
+
+
+## 5. Create a Feature Branch
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+
+## 6. Make Your Changes
+
+Please ensure:
+
+- Code follows the existing project structure.
+- Keep functions modular.
+- Test your changes before committing.
+- Update documentation if needed.
+
+
+## 7. Commit
+
+```bash
+git add .
+
+git commit -m "Add feature description"
+```
+
+
+## 8. Push
+
+```bash
+git push origin feature/your-feature-name
+```
+
+
+## 9. Open a Pull Request
+
+Describe:
+
+- What changed
+- Why it changed
+- Screenshots (if UI changes)
+- Testing performed
+
+
+# 📌 Roadmap
+
+- [x] Meeting Summarization
+- [x] Automatic Title Generation
+- [x] Action Item Extraction
+- [x] Decision Extraction
+- [x] Open Question Detection
+- [x] RAG-based Meeting Chat
+- [x] Groq Integration
+- [x] Ollama Integration
+- [ ] Speaker Diarization
+- [ ] Meeting Timeline
+- [ ] Multi-language UI
+- [ ] Email Meeting Reports
+- [ ] Calendar Integration
+- [ ] Multi-Meeting Semantic Search
+- [ ] Docker Support
+- [ ] Cloud Deployment
+
+
+# 📜 License
+
+This project is intended for educational, research, and personal use.
+
+
+# 👨‍💻 Author
 
 **Pavan Teja**
 
-Built using **Python, LangChain, Whisper, Mistral AI, ChromaDB, HuggingFace Embeddings, Streamlit, and Sarvam AI**.
+Built with ❤️ using Python, LangChain, Whisper, Groq, Ollama, ChromaDB, HuggingFace Embeddings, Streamlit, and Sarvam AI.
+````
