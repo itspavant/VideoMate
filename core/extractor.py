@@ -1,14 +1,27 @@
-# Actionable items, decisions, questions
-
+import os
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-import os
+from langchain_groq import ChatGroq
+from langchain_ollama import ChatOllama
 
 def get_llm():
-    return ChatMistralAI(model = "mistral-small-latest", mistral_api_key = os.getenv("MISTRAL_API_KEY"), temperature=0.2)
+    provider = os.getenv("LLM_PROVIDER", "groq").lower()
+
+    if provider == "ollama":
+        return ChatOllama(
+            model=os.getenv("OLLAMA_MODEL", "llama3.2:3b"),
+            temperature=0,
+        )
+
+    return ChatGroq(
+        model="llama-3.3-70b-versatile",
+        api_key=os.getenv("GROQ_API_KEY"),
+        temperature=0,
+    )
+
 
 def build_chain(system_prompt_text : str):
     llm = get_llm()
@@ -19,6 +32,7 @@ def build_chain(system_prompt_text : str):
     ])
 
     return (system_prompt | llm | StrOutputParser())
+
 
 def split_transcript(transcript: str) -> list:
     splitter = RecursiveCharacterTextSplitter(

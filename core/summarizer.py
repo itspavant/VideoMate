@@ -3,11 +3,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
-
+from core.extractor import get_llm
 import os
-
-def get_lllm():
-    return ChatMistralAI(model = "mistral-small-latest", mistral_api_key = os.getenv("MISTRAL_API_KEY"), temperature=0.3)
 
 
 def split_transcript(transcript: str) -> list:
@@ -20,7 +17,7 @@ def split_transcript(transcript: str) -> list:
 
 
 def summarize(transcript : str) -> str:
-    llm = get_lllm()
+    llm = get_llm()
 
     map_prompt = ChatPromptTemplate.from_messages(
         [
@@ -58,7 +55,7 @@ def summarize(transcript : str) -> str:
     return combined_chain.invoke({"text": combined})
 
 def generate_title(transcript : str) -> str:
-    llm = get_lllm()
+    llm = get_llm()
 
     title_prompt = ChatPromptTemplate.from_messages([
 
