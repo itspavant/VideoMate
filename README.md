@@ -527,4 +527,3 @@ This project is intended for educational, research, and personal use.
 **Pavan Teja**
 
 Built with ❤️ using Python, LangChain, Whisper, Groq, Ollama, ChromaDB, HuggingFace Embeddings, Streamlit, and Sarvam AI.
-````
